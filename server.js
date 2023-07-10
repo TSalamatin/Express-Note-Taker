@@ -24,6 +24,9 @@ const readAndAppend = (content, file) => {
     } else {
       const parsedData = JSON.parse(data);
       parsedData.push(content);
+      //Checking the db
+      console.log(parsedData)
+      //Writing to db
       writeToFile(file, parsedData);
     }
   });
@@ -36,7 +39,11 @@ const deteleFromFile = (index, file) => {
       console.error(err);
     } else {
       const parsedData = JSON.parse(data);
-      parsedData.splice(index,index);
+      //Pull the data, find the ID that matches the note sent from the provided code, slice it out
+      parsedData.splice(parsedData.findIndex( i => i.name === index , 1));
+      //Checking the db
+      console.log(parsedData);
+      //Put it back in
       writeToFile(file, parsedData);
     }
   })
@@ -57,13 +64,13 @@ app.get('/api/notes', (req, res) =>
 app.post('/api/notes', (req, res) => {
 
   // Log that a POST request was received
-  console.info(`${req.method} request received to add a note`);
+  console.log(`${req.method} request received to add a note`);
 
   // Destructuring assignment for the items in req.body
   const { id,  title, text} = req.body;
 
   // If all the required properties are present
-  if (id && title && text ) {
+  if ( title && text ) {
     // Variable for the object we will save
     const newNote = {
       id: uuid(),
@@ -82,9 +89,14 @@ app.post('/api/notes', (req, res) => {
 });
 
 // DELETE request for removing npot
-app.delete('/api/notes', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
+  console.log(`${req.method} request received to delete a note`);
 
-  deteleFromFile(req.body.id, './db/db.json')
+
+  deteleFromFile(req.params.id, './db/db.json')
+  .then(() => {
+    res.status(200)
+  })
   
 });
 
