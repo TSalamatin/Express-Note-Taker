@@ -4,6 +4,9 @@
 ## Description
     
 This application is used to demonstrate the applications of using Express.js to handle API requests.
+
+![express screenshot](https://github.com/TSalamatin/Express-Note-Taker/assets/128180862/1786aaa6-036a-4382-80f3-44ccbdade35b)
+
 Heroku Link: https://vast-atoll-59246-7a57e0a8a48c.herokuapp.com/
 
 ## Table of Contents
