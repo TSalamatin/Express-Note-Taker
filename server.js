@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const PORT = 3001
 const path = require('path');
-const dataBase = require('./db/db.json');
+
 const fs = require('fs');
 const util = require('util');
 const uuid = require('./helpers/uuid');
